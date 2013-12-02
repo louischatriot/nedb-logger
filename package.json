@@ -1,0 +1,33 @@
+{
+  "name": "nedb-logger",
+  "version": "0.1.0",
+  "author": {
+    "name": "Louis Chatriot",
+    "email": "louis.chatriot@gmail.com"
+  },
+  "contributors": [
+    "Louis Chatriot"
+  ],
+  "description": "Logger outputting messages to a file in a nedb-readable format with minimal memory footprint",
+  "keywords": [
+    "logger",
+    "nedb"
+  ],
+  "homepage": "https://github.com/louischatriot/nedb-logger",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:louischatriot/nedb-logger.git"
+  },
+  "dependencies": {
+    "nedb": "0.9.1"
+  },
+  "devDependencies": {
+    "chai": "1.0.x",
+    "mocha": "1.4.x",
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "main": "index",
+  "licence": "MIT"
+}
