@@ -53,6 +53,57 @@ describe('NeDB Logger', function () {
       });
     });
   });  
+  
+  it("Inserting multiple documents in sequence", function (done) {
+    var logger = new Logger({ filename: testDb });
+        
+    logger.insert({ hello: "world" }, function (err) {
+      assert.isNull(err);
+      assert.isNotNull(fs.readFileSync(testDb, 'utf8').match(/^{"hello":"world","_id":"[a-zA-Z0-9]{16}"}\n$/));
+
+      logger.insert({ number: 42 }, function (err) {
+        assert.isNull(err);
+        assert.isNotNull(fs.readFileSync(testDb, 'utf8').match(/^{"hello":"world","_id":"[a-zA-Z0-9]{16}"}\n{"number":42,"_id":"[a-zA-Z0-9]{16}"}\n$/));
+        
+        db = new Datastore({ filename: testDb, autoload: true });
+        db.find({}, function (err, docs) {
+          assert.isNull(err);
+          docs.length.should.equal(2);
+          if (docs[0].hello === "world") {
+            docs[0].hello.should.equal("world");          
+            docs[1].number.should.equal(42);          
+          } else {
+            docs[1].hello.should.equal("world");          
+            docs[0].number.should.equal(42);                    
+          }
+          done();
+        });      
+      });
+    });
+  });  
+  
+  it("Inserting multiple documents at once", function (done) {
+    var logger = new Logger({ filename: testDb });
+
+    logger.insert([{ hello: "world" }, { number: 42 }], function (err) {
+      assert.isNull(err);
+      assert.isNotNull(fs.readFileSync(testDb, 'utf8').match(/^{"hello":"world","_id":"[a-zA-Z0-9]{16}"}\n{"number":42,"_id":"[a-zA-Z0-9]{16}"}\n$/));
+      
+      db = new Datastore({ filename: testDb, autoload: true });
+      db.find({}, function (err, docs) {
+        assert.isNull(err);
+        docs.length.should.equal(2);
+        if (docs[0].hello === "world") {
+          docs[0].hello.should.equal("world");          
+          docs[1].number.should.equal(42);          
+        } else {
+          docs[1].hello.should.equal("world");          
+          docs[0].number.should.equal(42);                    
+        }
+        done();
+      });      
+    });
+  });    
 
 
 });
