@@ -32,6 +32,27 @@ describe('NeDB Logger', function () {
       });      
     });
   });
+  
+  it("Inserting one document with an error", function (done) {
+    var logger = new Logger({ filename: testDb });
+        
+    logger.insert({ "$hello": "world" }, function (err) {
+      assert.isNotNull(err);
+      fs.readFileSync(testDb, 'utf8').should.equal('');
+      
+      logger.insert({ "hello.world": "again" }, function (err) {
+        assert.isNotNull(err);
+        fs.readFileSync(testDb, 'utf8').should.equal('');
+        
+        db = new Datastore({ filename: testDb, autoload: true });
+        db.find({}, function (err, docs) {
+          assert.isNull(err);
+          docs.length.should.equal(0);
+          done();
+        });      
+      });
+    });
+  });  
 
 
 });
