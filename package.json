@@ -19,11 +19,12 @@
     "url": "git@github.com:louischatriot/nedb-logger.git"
   },
   "dependencies": {
-    "nedb": "0.9.1"
+    "nedb": "0.9.1",
+    "mkdirp": "~0.3.5"
   },
   "devDependencies": {
     "chai": "1.0.x",
-    "mocha": "1.4.x",
+    "mocha": "1.4.x"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha"
