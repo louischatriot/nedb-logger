@@ -1,4 +1,4 @@
-NeDB Logger
+# NeDB Logger
 
 NeDB Logger is a logger that writes object and JSON messages to a datafile readable by <a href="https://github.com/louischatriot/nedb" target="_blank">NeDB</a>, with minimal RAM footprint since it doesn't keep a cache of the database in memory. Use it when your application doesn't need to use the database capabilities of NeDB, just the logging ones. You can then use NeDB to query and modify your database.
 
