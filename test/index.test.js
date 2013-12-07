@@ -104,6 +104,22 @@ describe('NeDB Logger', function () {
       });      
     });
   });    
+  
+  it("Inserting multiple documents at once with an error", function (done) {
+    var logger = new Logger({ filename: testDb });
+
+    logger.insert([{ hello: "world" }, { "$number": 42 }], function (err) {
+      assert.isNotNull(err);
+      fs.readFileSync(testDb, 'utf8').should.equal('');
+      
+      db = new Datastore({ filename: testDb, autoload: true });
+      db.find({}, function (err, docs) {
+        assert.isNull(err);
+        docs.length.should.equal(0);
+        done();
+      });      
+    });
+  });    
 
 
 });
