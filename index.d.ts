@@ -3,12 +3,8 @@
 // Definitions by: Joe Vanderstelt <https://github.com/thisboyiscrazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = NeDBLoggerDataStore;
-export as namespace NedbLogger;
+export class NeDBLoggerDataStore {
 
-declare namespace NeDBLoggerDataStore { }
-declare class NeDBLoggerDataStore {
-    
     constructor(path?: string | {filename: string});
 
     /**
