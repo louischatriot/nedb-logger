@@ -4,7 +4,7 @@ var should = require('chai').should()
   , fs = require('fs')
   , path = require('path')
   , Logger = require('../index')
-  , Datastore = new require('nedb')
+  , Datastore = new require('nedb-core')
   , db
   ;
   
